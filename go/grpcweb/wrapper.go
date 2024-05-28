@@ -240,8 +240,7 @@ func (w *WrappedGrpcServer) IsGrpcWebRequest(req *http.Request) bool {
 //
 // You can control the CORS behaviour using `With*` options in the WrapServer function.
 func (w *WrappedGrpcServer) IsAcceptableGrpcCorsRequest(req *http.Request) bool {
-	accessControlHeaders := strings.ToLower(req.Header.Get("Access-Control-Request-Headers"))
-	if req.Method == http.MethodOptions && strings.Contains(accessControlHeaders, "x-grpc-web") {
+	if req.Method == http.MethodOptions {
 		if w.opts.corsForRegisteredEndpointsOnly {
 			return w.isRequestForRegisteredEndpoint(req)
 		}
